@@ -60,7 +60,7 @@ PR을 병합하기 전에 아래 항목을 모두 확인합니다. 하나라도 
 - [ ] **빌드가 통과하는가?** `npm run build`가 에러 없이 끝나는가 (프런트매터 스키마 포함).
 - [ ] **링크/교차참조가 올바른가?** 연대기·용어사전 연결이 깨지지 않는가.
 
-체크리스트를 통과하면 병합합니다. 병합되면 Cloudflare Pages가 자동으로 빌드·배포합니다
+체크리스트를 통과하면 병합합니다. 병합되면 Cloudflare Workers (정적 자산 / Static Assets)가 자동으로 빌드·배포합니다
 (→ [deployment.md](./deployment.md)).
 
 ## 3. 검증 상태 전환 기준
@@ -83,13 +83,13 @@ PR을 병합하기 전에 아래 항목을 모두 확인합니다. 하나라도 
 
 ## 4. 배포와 롤백
 
-배포는 자동입니다. `main`에 병합되면 Cloudflare Pages가 빌드해 CDN으로 배포합니다. 메인테이너가
+배포는 자동입니다. `main`에 병합되면 Cloudflare Workers (정적 자산 / Static Assets)가 빌드해 CDN으로 배포합니다. 메인테이너가
 직접 챙길 부분은 다음과 같습니다.
 
-- **빌드 실패 시:** Cloudflare Pages 대시보드의 빌드 로그를 확인하고, 원인을 고치는 PR을 올립니다.
+- **빌드 실패 시:** Cloudflare 대시보드(해당 Worker)의 빌드 로그를 확인하고, 원인을 고치는 PR을 올립니다.
   보통 프런트매터 스키마 오류나 깨진 링크가 원인입니다.
 - **잘못된 배포 롤백:** 문제 커밋을 되돌리는 PR(revert)을 병합하면 다음 빌드에서 정상 상태로
-  돌아옵니다. 긴급 시 Cloudflare Pages에서 직전의 정상 배포로 즉시 되돌릴 수 있습니다.
+  돌아옵니다. 긴급 시 Cloudflare 대시보드(해당 Worker)의 **Deployments / Versions** 이력에서 직전 정상 버전으로 롤백할 수 있습니다.
 
 > 구체적인 빌드 설정값, `_headers`(CSP) 내용, 롤백 단계별 절차는 [deployment.md](./deployment.md)를
 > 정본으로 삼습니다.

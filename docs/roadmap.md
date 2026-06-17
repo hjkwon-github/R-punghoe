@@ -16,7 +16,7 @@
 - 기본 콘텐츠: `index.mdx`, `about.md`, `principles.md`, `contributing.md`,
   `archive/timeline.md`, `archive/glossary.md`.
 - `content.config.ts`: 표준 Starlight docs 컬렉션(docsLoader + docsSchema).
-- `wrangler.jsonc`: Cloudflare Pages 출력 디렉터리 설정.
+- `wrangler.jsonc`: Workers Static Assets 배포 설정(`assets.directory: ./dist`).
 - README에 프로젝트 방향·비공식 고지가 기록됨. 라이선스는 미확정.
 
 **상태:** 골격은 섰지만, 기록 형식·배포 안전장치·운영 절차가 아직 문서화되지 않은 단계.
@@ -31,7 +31,7 @@
   `docs/content-model.md`, `docs/deployment.md`, `docs/policy.md`, `docs/README.md`.
 - 콘텐츠 모델 확정: 기록 1건 = 파일 1개, 프런트매터 필수 필드(날짜·출처·타임스탬프·검증 상태)와
   태그 체계 정의 → [content-model.md](./content-model.md).
-- 배포 파이프라인 문서화: Cloudflare Pages 빌드 설정, `public/_headers`(CSP 포함), 롤백 절차 →
+- 배포 파이프라인 문서화: Cloudflare Workers(Static Assets) 빌드/배포 설정, `public/_headers`(CSP 포함), 롤백 절차 →
   [deployment.md](./deployment.md).
 - 운영 정책 문서화: 금지 항목, 정정·삭제 요청 처리, 검증 상태 전환 기준 → [policy.md](./policy.md).
 - 기여 경로 확정: `CONTRIBUTING.md`, GitHub 이슈/PR 템플릿.
@@ -40,7 +40,7 @@
 **완료 기준**
 
 - 새 기여자가 문서만 읽고 첫 기록 PR을 형식에 맞게 만들 수 있다.
-- main에 병합하면 Cloudflare Pages가 자동 빌드·배포하고, 보안 헤더와 검색이 정상 동작한다.
+- main에 병합하면 Cloudflare Workers(Static Assets)가 자동 빌드·배포하고, 보안 헤더와 검색이 정상 동작한다.
 
 ## Phase 2 — 기록 채우기 · 태그/검색 정착 · 정정 프로세스 가동
 

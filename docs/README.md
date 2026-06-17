@@ -12,7 +12,7 @@
 | --- | --- |
 | [architecture.md](./architecture.md) | 시스템 설계 개요 — 목적·비목표, 구성도, 기술 스택 선택 근거, 디렉터리 트리, 검색/사이트맵/보안 헤더 |
 | [content-model.md](./content-model.md) | 기록 콘텐츠 모델 — 프런트매터 필수 필드(날짜·출처·타임스탬프·검증 상태)와 태그 스키마 _(별도 워크스트림)_ |
-| [deployment.md](./deployment.md) | 배포·롤백 절차 — Cloudflare Pages 빌드 설정, `public/_headers`(CSP) _(별도 워크스트림)_ |
+| [deployment.md](./deployment.md) | 배포·롤백 절차 — Cloudflare Workers(Static Assets) 빌드·배포 설정, `public/_headers`(CSP) _(별도 워크스트림)_ |
 | [policy.md](./policy.md) | 운영 정책 — 금지 항목, 정정·삭제 요청 처리, 검증 상태 기준 _(별도 워크스트림)_ |
 | [roadmap.md](./roadmap.md) | 단계별 로드맵 — Phase 0~4, 각 단계 산출물과 완료 기준 |
 | [maintainer-runbook.md](./maintainer-runbook.md) | 메인테이너 운영 가이드 — 새 기록 추가, PR 리뷰 체크리스트, 검증 상태 전환, 정기 점검 |

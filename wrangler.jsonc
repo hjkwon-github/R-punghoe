@@ -1,5 +1,20 @@
 {
+	// Cloudflare Workers — Static Assets configuration.
+	//
+	// This project is connected to Cloudflare via the Workers build pipeline, which
+	// runs `npm run build` and then `npx wrangler deploy`. There is NO Worker code:
+	// `wrangler deploy` uploads the Astro/Starlight static build in ./dist as static
+	// assets only, so the site stays 100% static (no backend / no functions).
+	//
+	// `name` must match the Worker/project name in the Cloudflare dashboard.
 	"name": "r-punghoe",
-	"pages_build_output_dir": "dist",
-	"compatibility_date": "2026-06-17"
+	"compatibility_date": "2026-06-17",
+	"assets": {
+		// The Astro build output directory. `_headers` and `_redirects` (emitted into
+		// dist/ from public/) are parsed natively by Workers static assets and applied
+		// to every static response (we have no Worker script, so nothing bypasses them).
+		"directory": "./dist",
+		// Serve the generated 404.html for unknown routes.
+		"not_found_handling": "404-page"
+	}
 }

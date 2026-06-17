@@ -24,7 +24,7 @@
 - [Astro](https://astro.build/) — 정적 사이트 프레임워크
 - [Starlight](https://starlight.astro.build/) — 문서/위키 테마 (검색·사이드바·사이트맵 기본 제공)
 - [Pagefind](https://pagefind.app/) — 클라이언트 사이드 검색 (Starlight 내장, 서버 불필요)
-- [Cloudflare Pages](https://developers.cloudflare.com/pages/) — 정적 호스팅 + 글로벌 CDN
+- [Cloudflare Workers](https://developers.cloudflare.com/workers/static-assets/) — 정적 자산 호스팅 + 글로벌 CDN
 
 ## 빠른 시작
 
@@ -49,7 +49,7 @@ npm run preview
 
 ### 배포
 
-Cloudflare Pages에 GitHub 저장소를 연결하면 `main` 병합 시 자동 빌드·배포됩니다. 빌드 설정과
+Cloudflare Workers(Git 연동, Workers Builds)에 저장소를 연결하면 `main` 병합 시 `npm run build` → `npx wrangler deploy`로 자동 빌드·배포됩니다. 빌드 설정과
 보안 헤더(`public/_headers`), 롤백 절차는 [docs/deployment.md](./docs/deployment.md)를 참고하세요.
 
 ## 문서 구조
@@ -63,6 +63,7 @@ src/content/docs/
   principles.md            기록 원칙
   contributing.md          기여 방법
   archive/timeline.md      연대기
+  archive/sources.md       출처 모음
   archive/glossary.md      용어사전
   archive/records/         개별 기록 (1기록 = 1파일)
 ```
@@ -74,7 +75,7 @@ src/content/docs/
 | [docs/README.md](./docs/README.md) | 문서 폴더 색인 |
 | [docs/architecture.md](./docs/architecture.md) | 시스템 설계 개요 (구성도·스택 근거·디렉터리 트리) |
 | [docs/content-model.md](./docs/content-model.md) | 기록 프런트매터/태그 스키마 |
-| [docs/deployment.md](./docs/deployment.md) | 배포·롤백, Cloudflare Pages, 보안 헤더 |
+| [docs/deployment.md](./docs/deployment.md) | 배포·롤백, Cloudflare Workers (정적 자산 / Static Assets), 보안 헤더 |
 | [docs/policy.md](./docs/policy.md) | 운영 정책, 금지 항목, 정정·삭제 처리 |
 | [docs/roadmap.md](./docs/roadmap.md) | 단계별 로드맵 (Phase 0~4) |
 | [docs/maintainer-runbook.md](./docs/maintainer-runbook.md) | 메인테이너 일상 운영 절차 |

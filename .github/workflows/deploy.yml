@@ -1,23 +1,24 @@
-name: Deploy to Cloudflare Pages
+name: Deploy to Cloudflare Workers (Static Assets)
 
 # OPTIONAL deployment path.
 #
-# The RECOMMENDED way to deploy this site is Cloudflare Pages' built-in Git
-# integration (connect the repo in the Pages dashboard). With that enabled,
-# Cloudflare builds and deploys on every push to main and creates preview
-# deployments for pull requests automatically -- and you do NOT need this
-# workflow at all.
+# The RECOMMENDED way to deploy this site is Workers Builds -- Cloudflare's
+# built-in Git integration for Workers (connect the repo in the Workers
+# dashboard). With that enabled, Cloudflare builds and deploys on every push to
+# main and creates preview deployments for pull requests automatically -- and
+# you do NOT need this workflow at all.
 #
 # Use THIS workflow only if you prefer to drive deploys from GitHub Actions
 # instead. It requires two repository secrets:
-#   - CLOUDFLARE_API_TOKEN  (scoped token with "Cloudflare Pages: Edit")
+#   - CLOUDFLARE_API_TOKEN  (scoped token: Edit Cloudflare Workers (Account -> Workers Scripts -> Edit))
 #   - CLOUDFLARE_ACCOUNT_ID
 # See docs/deployment.md for how to create both.
 #
-# To avoid double-deploying, enable EITHER the dashboard Git integration OR
-# this workflow -- not both. This workflow is gated on the repository variable
-# vars.ENABLE_ACTIONS_DEPLOY (see the `if:` on the job below), so it is a no-op
-# until you set ENABLE_ACTIONS_DEPLOY=true AND add the two secrets.
+# To avoid double-deploying, enable EITHER the dashboard Workers Builds Git
+# integration OR this workflow -- not both. This workflow is gated on the
+# repository variable vars.ENABLE_ACTIONS_DEPLOY (see the `if:` on the job
+# below), so it is a no-op until you set ENABLE_ACTIONS_DEPLOY=true AND add the
+# two secrets.
 
 on:
   push:
@@ -28,7 +29,7 @@ on:
 
 # Never run two production deploys at once.
 concurrency:
-  group: deploy-cloudflare-pages
+  group: deploy-cloudflare-workers
   cancel-in-progress: false
 
 permissions:
@@ -59,10 +60,11 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy to Cloudflare Workers (Static Assets)
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=r-punghoe
+          # `wrangler deploy` reads wrangler.jsonc (assets.directory: ./dist).
+          command: deploy
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
