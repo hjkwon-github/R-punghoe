@@ -1,0 +1,43 @@
+# Cloudflare Pages "_headers" file
+# Docs: https://developers.cloudflare.com/pages/configuration/headers/
+#
+# Rules are applied top-to-bottom. The "/*" rule below applies to every
+# response on the site. The "/_astro/*" rule adds immutable caching for
+# content-hashed build assets and is intentionally listed AFTER the global
+# rule so its Cache-Control wins for that path.
+#
+# IMPORTANT (CSP compatibility):
+#   Astro/Starlight emit a small amount of inline <style> and inline/module
+#   <script> (component scripts, the light/dark theme toggle, and the
+#   ViewTransitions accessibility announcer). Pagefind (Starlight's built-in
+#   client-side search) loads a WebAssembly bundle and fetches its index
+#   chunks from the same origin. The CSP below is deliberately chosen to be
+#   strong while remaining VERIFIED-COMPATIBLE with this stack:
+#     - 'self'             : only load our own resources by default
+#     - 'unsafe-inline'    : required by Astro/Starlight inline style+script
+#     - 'wasm-unsafe-eval' : required so Pagefind can compile its WASM bundle
+#     - data:              : Astro inlines small images/fonts as data URIs
+#     - connect-src 'self' : Pagefind fetches its index chunks same-origin
+#   We do NOT use 'unsafe-eval' (general JS eval stays blocked).
+
+/*
+  # Block MIME-type sniffing.
+  X-Content-Type-Options: nosniff
+  # Disallow this site from being framed (clickjacking protection).
+  X-Frame-Options: DENY
+  # Send origin only on cross-origin requests; full URL same-origin.
+  Referrer-Policy: strict-origin-when-cross-origin
+  # Force HTTPS for ~2 years incl. subdomains (Pages is HTTPS-only).
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  # Disable powerful features the site does not use.
+  Permissions-Policy: accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), interest-cohort=()
+  # Content-Security-Policy: see notes above for each allowance.
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests
+
+# Content-hashed build output never changes for a given URL: cache forever.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Pagefind's static index/bundle is content-stable per build; cache aggressively.
+/pagefind/*
+  Cache-Control: public, max-age=86400

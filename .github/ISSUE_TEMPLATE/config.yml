@@ -1,0 +1,15 @@
+# 자유 형식 빈 이슈를 막고, 항상 위의 구조화된 템플릿을 사용하도록 유도합니다.
+blank_issues_enabled: false
+contact_links:
+  - name: 📚 기여 가이드
+    url: https://github.com/hjkwon-github/R-punghoe/blob/main/CONTRIBUTING.md
+    about: 기록 제안 방법, 기록 형식, 검증 흐름, 반드시 지켜야 하는 규칙을 먼저 확인하세요.
+  - name: 🧭 기록 원칙
+    url: https://github.com/hjkwon-github/R-punghoe/blob/main/src/content/docs/principles.md
+    about: 공개 출처·검증 상태·사생활 비추적 등 아카이브 운영 원칙입니다.
+  - name: 🤝 행동 강령
+    url: https://github.com/hjkwon-github/R-punghoe/blob/main/CODE_OF_CONDUCT.md
+    about: 커뮤니티에서 지켜야 할 행동 기준과 신고 방법입니다.
+  - name: 💬 자유 토론 (Discussions)
+    url: https://github.com/hjkwon-github/R-punghoe/discussions
+    about: 기록 제안·정정·삭제가 아닌 일반적인 질문이나 논의는 이곳을 이용해 주세요.

@@ -1,0 +1,84 @@
+name: 🚫 삭제·정정 요청 (Takedown request)
+description: 사생활 또는 권리 문제로 특정 내용의 삭제·수정을 요청합니다.
+title: "[삭제·정정] "
+labels:
+  - 삭제요청
+  - 우선검토
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 삭제·정정 요청
+
+        R-punghoe는 **사생활과 권리를 존중**합니다. 등록된 내용이 사생활을 침해하거나
+        권리를 침해한다고 판단되시면, 정중하고 신속하게 처리하겠습니다.
+
+        - 이 요청은 다른 기여보다 **우선 검토**됩니다.
+        - 처리 절차와 기준은 운영 정책(`docs/policy.md` — 별도 문서)을 따릅니다.
+          정책 문서가 게시되면 이 안내에서 링크로 연결됩니다.
+        - 민감한 개인정보는 이 공개 Issue 본문에 직접 적지 말고,
+          비공개 연락이 필요하면 그 사실만 적어 주세요. 운영자가 연락 방법을 안내합니다.
+
+  - type: textarea
+    id: target-content
+    attributes:
+      label: 대상 내용
+      description: 어떤 페이지/항목/문장에 대한 요청인가요? URL이나 인용으로 위치를 알려 주세요.
+      placeholder: 예) /archive/glossary 의 "○○" 항목 / 특정 문장
+    validations:
+      required: true
+
+  - type: dropdown
+    id: request-type
+    attributes:
+      label: 요청 유형
+      options:
+        - 삭제
+        - 수정
+        - 기타(아래 사유에 설명)
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: 사유
+      description: 왜 삭제·수정이 필요한지 설명해 주세요. (예 사생활 침해, 저작권, 사실관계, 명예 등)
+      placeholder: 어떤 권리·사유로 요청하시는지 차분히 설명해 주세요.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: relationship
+    attributes:
+      label: 요청자 관계
+      description: 요청하시는 분이 대상과 어떤 관계인지 알려 주세요.
+      options:
+        - 본인
+        - 본인의 대리인/법정대리인
+        - 권리 보유자(저작권 등)
+        - 제3자(관계없음)
+        - 기타
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: contact
+    attributes:
+      label: 연락 방법 (선택)
+      description: 비공개 확인이 필요한 경우의 연락 방법. 적지 않으셔도 됩니다. 공개되는 항목이니 민감 정보는 피해 주세요.
+      placeholder: 예) GitHub 멘션으로 연락 가능 / 별도 채널 요청
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: ack
+    attributes:
+      label: 확인
+      options:
+        - label: 제출 내용이 정확하며, 운영진이 사실 확인을 위해 추가 정보를 요청할 수 있음을 이해합니다.
+          required: true
+        - label: 이 공개 Issue 본문에 불필요한 사적 정보를 적지 않았습니다.
+          required: true

@@ -1,0 +1,68 @@
+name: Deploy to Cloudflare Pages
+
+# OPTIONAL deployment path.
+#
+# The RECOMMENDED way to deploy this site is Cloudflare Pages' built-in Git
+# integration (connect the repo in the Pages dashboard). With that enabled,
+# Cloudflare builds and deploys on every push to main and creates preview
+# deployments for pull requests automatically -- and you do NOT need this
+# workflow at all.
+#
+# Use THIS workflow only if you prefer to drive deploys from GitHub Actions
+# instead. It requires two repository secrets:
+#   - CLOUDFLARE_API_TOKEN  (scoped token with "Cloudflare Pages: Edit")
+#   - CLOUDFLARE_ACCOUNT_ID
+# See docs/deployment.md for how to create both.
+#
+# To avoid double-deploying, enable EITHER the dashboard Git integration OR
+# this workflow -- not both. This workflow is gated on the repository variable
+# vars.ENABLE_ACTIONS_DEPLOY (see the `if:` on the job below), so it is a no-op
+# until you set ENABLE_ACTIONS_DEPLOY=true AND add the two secrets.
+
+on:
+  push:
+    branches:
+      - main
+  # Allow manual runs from the Actions tab.
+  workflow_dispatch:
+
+# Never run two production deploys at once.
+concurrency:
+  group: deploy-cloudflare-pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    # Skip entirely unless the repository variable ENABLE_ACTIONS_DEPLOY is set
+    # to "true", so the repo works out-of-the-box with the dashboard Git
+    # integration instead. (Set it in Settings > Secrets and variables > Actions.)
+    if: ${{ vars.ENABLE_ACTIONS_DEPLOY == 'true' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=r-punghoe
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

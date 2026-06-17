@@ -1,0 +1,64 @@
+name: 🛠️ 정정 요청 (Correction request)
+description: 이미 등록된 기록의 오류(날짜, 출처, 타임스탬프, 내용 등)를 신고합니다.
+title: "[정정] "
+labels:
+  - 정정요청
+  - 검토필요
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 정정 요청
+
+        기존 기록에서 사실과 다른 부분을 발견하셨나요? 아래 정보를 채워 주세요.
+        정확한 출처를 함께 제시해 주시면 빠르게 확인하고 반영할 수 있습니다.
+
+  - type: input
+    id: target
+    attributes:
+      label: 대상 페이지/항목
+      description: 어떤 문서 또는 기록 항목인가요? URL이나 제목을 적어 주세요.
+      placeholder: 예) /archive/timeline 의 "2024-05-17 라이브" 항목
+    validations:
+      required: true
+
+  - type: textarea
+    id: whats-wrong
+    attributes:
+      label: 무엇이 틀렸나요?
+      description: 현재 기록의 어떤 부분이 잘못되었는지 구체적으로 적어 주세요.
+      placeholder: |
+        현재 기록: ...
+        문제점: 날짜가 실제와 다릅니다 / 타임스탬프가 어긋납니다 / 맥락이 잘못 요약되었습니다 등
+    validations:
+      required: true
+
+  - type: textarea
+    id: correct-info
+    attributes:
+      label: 올바른 내용
+      description: 올바른 값(날짜, 타임스탬프, 요약 등)을 적어 주세요.
+      placeholder: 올바른 날짜/타임스탬프/표현을 적어 주세요.
+    validations:
+      required: true
+
+  - type: textarea
+    id: correct-source
+    attributes:
+      label: 올바른 출처
+      description: 정정 내용을 뒷받침하는 공개 출처 링크를 적어 주세요.
+      placeholder: |
+        https://www.youtube.com/watch?v=XXXXXXXXXXX
+        https://example.com/article
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: 정책 확인
+      options:
+        - label: 제시한 출처는 누구나 확인할 수 있는 **공개 자료**입니다.
+          required: true
+        - label: 이 요청은 사생활·개인정보를 새로 추가하거나 투자 조언을 포함하지 않습니다.
+          required: true

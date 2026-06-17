@@ -1,0 +1,39 @@
+name: CI
+
+# Pure build/validation gate. Runs the production Astro/Starlight build to
+# catch broken content, config, or dependency issues before merge. It does
+# NOT deploy anything (deployment is handled separately).
+on:
+  pull_request:
+  push:
+    # Build every branch except main; main is built+deployed by deploy.yml.
+    branches-ignore:
+      - main
+
+# Cancel superseded runs on the same ref to save CI minutes.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build site
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build

@@ -1,0 +1,8 @@
+# robots.txt for R-punghoe (https://r-punghoe.pages.dev)
+# Allow all crawlers to index the entire public archive.
+User-agent: *
+Allow: /
+
+# Starlight emits a sitemap index automatically when `site` is set in
+# astro.config.mjs (it generates /sitemap-index.xml plus /sitemap-0.xml).
+Sitemap: https://r-punghoe.pages.dev/sitemap-index.xml

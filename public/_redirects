@@ -1,0 +1,12 @@
+# Cloudflare Pages "_redirects" file
+# Docs: https://developers.cloudflare.com/pages/configuration/redirects/
+#
+# Format:  <source>  <destination>  [status]
+# Pages already serves clean URLs (e.g. /about for /about/index.html) and
+# returns 404.html for unknown paths, so no redirects are required for this
+# static Starlight site today.
+#
+# Add real redirects here only when a page actually moves or is renamed,
+# so that existing links and search-engine results keep working. Example:
+#
+# /old-path   /archive/timeline   301
